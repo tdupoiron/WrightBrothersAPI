@@ -1,19 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using WrightBrothersApi.Models;
+using System.Collections.Generic;
 
 namespace WrightBrothersApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WrightBrothersAirfieldsController : ControllerBase
+    public class AirfieldsController : ControllerBase
     {
         private static readonly List<Airfield> Airfields = new List<Airfield>
         {
-            new Airfield("Huffman Prairie", "Dayton, Ohio", "1904-1905", "Second field used by the Wright Brothers"),
-            new Airfield("Kill Devil Hills", "Kitty Hawk, North Carolina", "1900-1903", "First field used by the Wright Brothers"),
-            new Airfield("Simms Station", "Dayton, Ohio", "1905-1909", "Third field used by the Wright Brothers"),
-            new Airfield("Wright Brothers Field", "Dayton, Ohio", "1910-1915", "Fourth field used by the Wright Brothers")
+            new Airfield("Huffman Prairie", "Dayton, Ohio", "1904-1905", "First practical airplane flights"),
+            new Airfield("Simms Station", "Dayton, Ohio", "1905-1909", "First civilian flight training school"),
+            new Airfield("Kill Devil Hills", "North Carolina", "1900-1903", "First controlled, sustained flight of a powered, heavier-than-air aircraft"),
+            new Airfield("Pau", "France", "1909", "First public passenger flights")
         };
 
         [HttpGet]
@@ -48,7 +48,6 @@ namespace WrightBrothersApi.Controllers
             {
                 return NotFound();
             }
-            airfield.Name = updatedAirfield.Name; // Fix: Make the 'Name' property accessible by adding a public set accessor in the 'Airfield' class.
             airfield.Location = updatedAirfield.Location;
             airfield.DatesOfUse = updatedAirfield.DatesOfUse;
             airfield.Significance = updatedAirfield.Significance;

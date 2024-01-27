@@ -1,4 +1,4 @@
-namespace Microsoft.eShopWeb.ApplicationCore.Constants;
+namespace WrightBrothersApi;
 
 public class AuthorizationConstants
 {

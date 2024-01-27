@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Data.SqlClient;
 
-namespace WrightBrothersApi
+namespace WrightBrothersApi.Controllers
 {
-    public class SqlInjectionExample
+    public class SecureLogin
     {
         private readonly string _connectionString;
 
-        public SqlInjectionExample(string connectionString)
+        public SecureLogin(string connectionString)
         {
             _connectionString = connectionString;
         }

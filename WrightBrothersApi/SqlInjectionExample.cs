@@ -1,7 +1,7 @@
 using System;
 using System.Data.SqlClient;
 
-namespace Tailwind.Traders.Web
+namespace WrightBrothersApi.Controllers
 {
     public class SqlInjectionExample
     {

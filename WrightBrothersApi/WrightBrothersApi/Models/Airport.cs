@@ -6,7 +6,7 @@ public class Airport
     // Properties
     public string AirportCode { get; set; }
     public string Name { get; set; }
-    public string Location { get; set; } // This can be replaced with a more complex Location type if needed
+    public string Location { get; set; }
     public int TerminalCount { get; set; }
     public List<string> Runways { get; set; }
     public List<string> Airlines { get; set; }

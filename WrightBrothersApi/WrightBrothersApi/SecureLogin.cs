@@ -1,44 +1,43 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace WrightBrothersApi
+namespace WrightBrothersApi.Controllers;
+
+public class SecureLogin
 {
-    public class SecureLogin
+    private readonly string _connectionString;
+
+    public SecureLogin(string connectionString)
     {
-        private readonly string _connectionString;
+        _connectionString = connectionString;
+    }
 
-        public SecureLogin(string connectionString)
+    public bool AuthenticateUser(string username, string password)
+    {
+        string query = "SELECT * FROM Users WHERE Username = '" + username + "' AND Password = '" + password + "'";
+
+        using (SqlConnection connection = new SqlConnection(_connectionString))
         {
-            _connectionString = connectionString;
-        }
+            SqlCommand command = new SqlCommand(query, connection);
 
-        public bool AuthenticateUser(string username, string password)
-        {
-            string query = "SELECT * FROM Users WHERE Username = '" + username + "' AND Password = '" + password + "'";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
+            try
             {
-                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
 
-                try
+                if (reader.HasRows)
                 {
-                    connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-                    if (reader.HasRows)
-                    {
-                        reader.Close();
-                        return true;
-                    }
-
                     reader.Close();
-                    return false;
+                    return true;
                 }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error: " + ex.Message);
-                    return false;
-                }
+
+                reader.Close();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                return false;
             }
         }
     }

@@ -1,25 +1,7 @@
-﻿using System;
+using System;
 using System.Data.SqlClient;
 
 namespace WrightBrothersApi
-{
-    public class SecureLogin
-    {
-        private readonly string _connectionString;
-
-        public SecureLogin(string connectionString)
-        {
-            _connectionString = connectionString;
-        }
-
-        public bool AuthenticateUser(string username, string password)
-        {
-            string query = "SELECT * FROM Users WHERE Username = @Username AND Password = @Password";
-
-            using (SqlConnection connection = new)
-        }
-    }
-}
 {
     public class SqlInjectionExample
     {

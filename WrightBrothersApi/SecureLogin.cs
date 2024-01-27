@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 
-namespace WrightBrothersApi.Controllers
+namespace WrightBrothersApi
 {
     public class SecureLogin
     {

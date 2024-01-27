@@ -1,4 +1,4 @@
-namespace WrightBrothersApi;
+namespace WrightBrothersApi.Controllers;
 
 public class AuthorizationConstants
 {

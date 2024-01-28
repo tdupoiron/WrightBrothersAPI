@@ -1,80 +1,79 @@
 using Microsoft.AspNetCore.Mvc;
 using WrightBrothersApi.Models;
 
-namespace WrightBrothersApi.Controllers
+namespace WrightBrothersApi.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class PlanesController : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class PlanesController : ControllerBase
+    private readonly ILogger<PlanesController> _logger;
+
+    public PlanesController(ILogger<PlanesController> logger)
     {
-        private readonly ILogger<PlanesController> _logger;
+        _logger = logger;
+    }
 
-        public PlanesController(ILogger<PlanesController> logger)
+    private static readonly List<Plane> Planes = new List<Plane>
+    {
+        new Plane
         {
-            _logger = logger;
+            Id = 1,
+            Name = "Wright Flyer",
+            Year = 1903,
+            Description = "The first successful heavier-than-air powered aircraft.",
+            RangeInKm = 12
+        },
+        new Plane
+        {
+            Id = 2,
+            Name = "Wright Flyer II",
+            Year = 1904,
+            Description = "A refinement of the original Flyer with better performance.",
+            RangeInKm = 24
+        }
+    };
+
+    [HttpGet]
+    public ActionResult<List<Plane>> GetAll()
+    {
+        _logger.LogInformation("GET all ✈✈✈ NO PARAMS ✈✈✈");
+
+        return Planes;
+    }
+
+    [HttpGet("{id}")]
+    public ActionResult<Plane> GetById(int id)
+    {
+        var plane = Planes.Find(p => p.Id == id);
+
+        if (plane == null)
+        {
+            return NotFound();
         }
 
-        private static readonly List<Plane> Planes = new List<Plane>
-        {
-            new Plane
-            {
-                Id = 1,
-                Name = "Wright Flyer",
-                Year = 1903,
-                Description = "The first successful heavier-than-air powered aircraft.",
-                RangeInKm = 12
-            },
-            new Plane
-            {
-                Id = 2,
-                Name = "Wright Flyer II",
-                Year = 1904,
-                Description = "A refinement of the original Flyer with better performance.",
-                RangeInKm = 24
-            }
-        };
+        return Ok(plane);
+    }
 
-        [HttpGet]
-        public ActionResult<List<Plane>> GetAll()
-        {
-            _logger.LogInformation("GET all ✈✈✈ NO PARAMS ✈✈✈");
+    // search by name
+    [HttpGet("search")]
+    public ActionResult<List<Plane>> GetByName([FromQuery] string name)
+    {
+        var planes = Planes.FindAll(p => p.Name.Contains(name));
 
-            return Planes;
+        if (planes == null)
+        {
+            return NotFound();
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Plane> GetById(int id)
-        {
-            var plane = Planes.Find(p => p.Id == id);
+        return Ok(planes);
+    }
 
-            if (plane == null)
-            {
-                return NotFound();
-            }
+    [HttpPost]
+    public ActionResult<Plane> Post(Plane plane)
+    {
+        Planes.Add(plane);
 
-            return Ok(plane);
-        }
-
-        // search by name
-        [HttpGet("search")]
-        public ActionResult<List<Plane>> GetByName([FromQuery] string name)
-        {
-            var planes = Planes.FindAll(p => p.Name.Contains(name));
-
-            if (planes == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(planes);
-        }
-
-        [HttpPost]
-        public ActionResult<Plane> Post(Plane plane)
-        {
-            Planes.Add(plane);
-
-            return CreatedAtAction(nameof(GetById), new { id = plane.Id }, plane);
-        }
+        return CreatedAtAction(nameof(GetById), new { id = plane.Id }, plane);
     }
 }

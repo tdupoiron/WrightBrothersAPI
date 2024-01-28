@@ -1,10 +1,10 @@
 ﻿using System.Data.SqlClient;
 
-namespace WrightBrothersApi.Login
+namespace WrightBrothersApi.Login;
+
+public class SecureLogin
 {
-    public class SecureLogin
-    {
-        private readonly string _connectionString;
+    private readonly string _connectionString;
 
     public SecureLogin(string connectionString)
     {
@@ -41,3 +41,4 @@ namespace WrightBrothersApi.Login
         }
     }
 }
+

@@ -18,16 +18,6 @@ public class LoginsController : ControllerBase
     [HttpPost]
     public IActionResult Authenticate(string username, string password)
     {
-        // Add fake names for testing
-        if (username == "JohnDoe" && password == "password123")
-        {
-            return Ok();
-        }
-        else if (username == "JaneDoe" && password == "password456")
-        {
-            return Ok();
-        }
-
         bool isAuthenticated = _secureLogin.AuthenticateUser(username, password);
 
         if (isAuthenticated)

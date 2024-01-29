@@ -44,7 +44,8 @@ public class FlightsController : ControllerBase
             // Arrival at Manteo, NC
             // Flight number WB002
             FlightLogSignature = "171203-DEP-ARR-WB002"
-        }
+        },
+        
     };
 
     public FlightsController(ILogger<FlightsController> logger)

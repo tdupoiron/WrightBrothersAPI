@@ -56,7 +56,7 @@ public class FlightsController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<Flight> GetById(int id)
     {
-        _logger.LogInformation($"GET flight with --- Id:{id} ---");
+        _logger.LogInformation($"GET flight with ✈✈✈ Id:{id} ✈✈✈");
 
         var flight = Flights.Find(f => f.Id == id);
 

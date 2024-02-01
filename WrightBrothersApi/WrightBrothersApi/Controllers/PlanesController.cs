@@ -55,6 +55,14 @@ public class PlanesController : ControllerBase
         return Ok(plane);
     }
 
+    [HttpPost]
+    public ActionResult<Plane> Post(Plane plane)
+    {
+        Planes.Add(plane);
+
+        return CreatedAtAction(nameof(GetById), new { id = plane.Id }, plane);
+    }
+
     // search by name
     [HttpGet("search")]
     public ActionResult<List<Plane>> GetByName([FromQuery] string name)
@@ -69,11 +77,4 @@ public class PlanesController : ControllerBase
         return Ok(planes);
     }
 
-    [HttpPost]
-    public ActionResult<Plane> Post(Plane plane)
-    {
-        Planes.Add(plane);
-
-        return CreatedAtAction(nameof(GetById), new { id = plane.Id }, plane);
-    }
 }

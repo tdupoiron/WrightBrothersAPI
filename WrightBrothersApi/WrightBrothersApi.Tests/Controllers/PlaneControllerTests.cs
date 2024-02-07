@@ -23,7 +23,9 @@ namespace WrightBrothersApi.Tests.Controllers
             var result = _planesController.GetAll();
 
             // Assert
-            result.Value.Should().NotBeEmpty();
+            var okObjectResult = (OkObjectResult)result.Result!;
+            var returnedPlanes = (List<Plane>)okObjectResult.Value!;
+            returnedPlanes.Should().NotBeEmpty();
         }
 
         [Fact]
@@ -49,5 +51,22 @@ namespace WrightBrothersApi.Tests.Controllers
             var returnedPlane = (Plane)createdAtActionResult.Value!;
             returnedPlane.Should().BeEquivalentTo(newPlane);
         }
+
+        [Fact]
+        public void GetById_ReturnsPlane()
+        {
+            // Arrange
+            var id = 1;
+
+            // Act
+            var result = _planesController.GetById(id);
+
+            // Assert
+            var okObjectResult = (OkObjectResult)result.Result!;
+            var returnedPlane = (Plane)okObjectResult.Value!;
+            returnedPlane.Should().NotBeNull();
+        }
+ 
+
     }
 }

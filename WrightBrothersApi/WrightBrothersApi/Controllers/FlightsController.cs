@@ -37,22 +37,7 @@ public class FlightsController : ControllerBase
             FuelRange = 100,
             FuelTankLeak = false,
             FlightLogSignature = "171203-DEP-ARR-WB002"
-        },
-        // This is the first Wright Brothers plane that crashed.
-        new Flight
-        {
-            Id = 3,
-            FlightNumber = "WB003",
-            Origin = "Fort Myer, VA",
-            Destination = "Fort Myer, VA",
-            DepartureTime = new DateTime(1908, 9, 17, 10, 35, 0),
-            ArrivalTime = new DateTime(1908, 9, 17, 10, 35, 0).AddMinutes(12),
-            Status = FlightStatus.Scheduled,
-            FuelRange = 100,
-            // The cause of the crash was NOT a fuel tank leak, but we will pretend it was
-            FuelTankLeak = true,
-            FlightLogSignature = "170908-DEP-ARR-WB003"
-        },
+        }
 
     };
 

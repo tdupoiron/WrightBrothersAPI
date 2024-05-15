@@ -22,7 +22,8 @@ public class FlightsController : ControllerBase
             Status = FlightStatus.Scheduled,
             FuelRange = 100,
             FuelTankLeak = false,
-            FlightLogSignature = "171203-DEP-ARR-WB001"
+            FlightLogSignature = "171203-DEP-ARR-WB001",
+            AerobaticSequenceSignature = "L4B-H2C-R3A-S1D-T2E"
         },
         // Second ever flight of the Wright Brothers
         new Flight
@@ -36,8 +37,25 @@ public class FlightsController : ControllerBase
             Status = FlightStatus.Scheduled,
             FuelRange = 100,
             FuelTankLeak = false,
-            FlightLogSignature = "171203-DEP-ARR-WB002"
-        }
+            FlightLogSignature = "171203-DEP-ARR-WB002",
+            AerobaticSequenceSignature = "L1A-H1B-R1C-T1E"
+        },
+        // This is the first Wright Brothers plane that crashed.
+        new Flight
+        {
+            Id = 3,
+            FlightNumber = "WB003",
+            Origin = "Fort Myer, VA",
+            Destination = "Fort Myer, VA",
+            DepartureTime = new DateTime(1908, 9, 17, 10, 35, 0),
+            ArrivalTime = new DateTime(1908, 9, 17, 10, 35, 0).AddMinutes(12),
+            Status = FlightStatus.Scheduled,
+            FuelRange = 100,
+            // The cause of the crash was NOT a fuel tank leak, but we will pretend it was
+            FuelTankLeak = true,
+            FlightLogSignature = "170908-DEP-ARR-WB003",
+            AerobaticSequenceSignature = "L2A-H2B-R2C"
+        },
 
     };
 
@@ -182,7 +200,7 @@ public class FlightsController : ControllerBase
         Stopwatch stopwatch = new Stopwatch();
         stopwatch.Start();
 
-        List<int> primes = CalculatePrimes(2, 300000); // Adjust the range to ensure the operation takes about 10 seconds
+        List<int> primes = CalculatePrimes(2, 300000);
 
         stopwatch.Stop();
         Console.WriteLine($"Found {primes.Count} prime numbers.");
@@ -193,23 +211,21 @@ public class FlightsController : ControllerBase
 
     public static List<int> CalculatePrimes(int start, int end)
     {
-        ConcurrentBag<int> primes = new ConcurrentBag<int>();
-        Parallel.For(start, end + 1, number =>
+        List<int> primes = new List<int>();
+        for (int number = start; number <= end; number++)
         {
             if (IsPrime(number))
             {
                 primes.Add(number);
             }
-        });
-        return primes.ToList();
+        }
+        return primes;
     }
 
     public static bool IsPrime(int number)
     {
         if (number <= 1) return false;
-        int boundary = (int)Math.Floor(Math.Sqrt(number));
-
-        for (int i = 2; i <= boundary; i++)  // Efficient check for prime numbers
+        for (int i = 2; i < number; i++) // Inefficient check for prime numbers
         {
             if (number % i == 0) return false;
         }

@@ -55,8 +55,7 @@ public class FlightsController : ControllerBase
             FuelTankLeak = true,
             FlightLogSignature = "170908-DEP-ARR-WB003",
             AerobaticSequenceSignature = "L2A-H2B-R2C"
-        },
-
+        }
     };
 
     public FlightsController(ILogger<FlightsController> logger)
